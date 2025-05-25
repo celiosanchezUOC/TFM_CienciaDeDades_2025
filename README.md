@@ -3,13 +3,14 @@ Agents d'Intel·ligència Artificial amb Anàlisi Automatitzada d'Imatges Dermat
 L'objectiu principal del projecte es dissenyar i implementar una eina automatitzada basada en n8n, Python i models d’intel·ligència artificial, capaç de classificar imatges dermatoscòpiques de lesions cutànies com a benignes o malignes, proporcionant suport tant a professionals mèdics com a usuaris no especialitzats en la detecció precoç del càncer de pell.
 ### Prerequisits:
 Es necessiten diferents ferramentes per tal de poder executar el projecte.
+* Visual studio Code - https://code.visualstudio.com/
 * Docker - https://www.docker.com/
 * n8n - https://n8n.io/
 * FastApi - https://fastapi.tiangolo.com/
 * Streamlit - https://streamlit.io/
 
 Hem utilitzat aquestes llibreries:
-
+```
 numpy==1.26.0
 pandas==2.2.0
 opencv-python==4.7.0.72
@@ -33,3 +34,4 @@ streamlit
 requests
 plotly
 python-dotenv
+```
