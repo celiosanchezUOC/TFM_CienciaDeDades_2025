@@ -1,6 +1,22 @@
 # TFM_CienciaDeDades_2025
-Agents d'Intel·ligència Artificial amb Anàlisi Automatitzada d'Imatges Dermatoscòpiques per ajudar amb el Diagnòstic.
-L'objectiu principal del projecte es dissenyar i implementar una eina automatitzada basada en n8n, Python i models d’intel·ligència artificial, capaç de classificar imatges dermatoscòpiques de lesions cutànies com a benignes o malignes, proporcionant suport tant a professionals mèdics com a usuaris no especialitzats en la detecció precoç del càncer de pell.
+
+## Agents d'Intel·ligència Artificial amb Anàlisi Automatitzada d'Imatges Dermatoscòpiques per ajudar amb el Diagnòstic
+
+**Autor:** Celio Sánchez Bañuls  
+**Tutor:** Samuel Paul Gallegos Serrano  
+**Universitat:** UOC  
+**Any:** 2025
+
+---
+
+### 📄 Descripció
+
+Aquest projecte és el resultat del Treball de Fi de Màster en Ciència de Dades on l'objectiu principal del projecte es el desenvolupament d’una eina automatitzada per a la classificació d’imatges dermatoscòpiques mitjançant models avançats d’intel·ligència artificial. 
+L'entorn serà capaç de classificar imatges dermatoscòpiques de lesions cutànies com a benignes o malignes, proporcionant suport tant a professionals mèdics com a usuaris no especialitzats en la detecció precoç del càncer de pell.
+El sistema integra diverses tecnologies per facilitar la seva aplicació en entorns clínics i investigadors.
+
+---
+
 ### Prerequisits:
 Es necessiten diferents ferramentes per tal de poder executar el projecte.
 * Visual studio Code - https://code.visualstudio.com/
@@ -8,6 +24,11 @@ Es necessiten diferents ferramentes per tal de poder executar el projecte.
 * n8n - https://n8n.io/
 * FastApi - https://fastapi.tiangolo.com/
 * Streamlit - https://streamlit.io/
+  
+Tambe s'han de descarregar els conjunts de dades que utilitzarem.
+* HAM10000 - https://www.kaggle.com/datasets/kmader/skin-cancer-mnist-ham10000
+* Stanford Diverse Dermatology Images -  https://ddi-dataset.github.io/index.html
+* Fitzpatrick17k - https://github.com/mattgroh/fitzpatrick17k
 
 Hem utilitzat aquestes llibreries:
 ```
@@ -36,45 +57,55 @@ plotly
 python-dotenv
 ```
 
-
-# TFM_CienciaDeDades_2025
-
-## Agents d'Intel·ligència Artificial amb Anàlisi Automatitzada d'Imatges Dermatoscòpiques per ajudar amb el Diagnòstic
-
-**Autor:** Celio Sánchez Bañuls  
-**Tutors:** Samuel Paul Gallegos Serrano, Laia Subirats  
-**Universitat:** UOC  
-**Any:** 2025
-
+## Scripts inicials per als models i conjunt de dades
+### Undersampling
+Este script hi ha que adaptarlo segons el dataset (en este cas es sobre el dataset de Stanford Diverse Dermatology Images)
+- ProcesarDatasetUndersampling.py
+### Entrenament
+- DenseNet201.py
+- InceptionResNetV2.py
+- SwinTransformerV2.py
+- ViT-B16.py
+- Xception.py
 ---
 
-### 📄 Descripció
-
-Aquest projecte és el resultat del Treball de Fi de Màster en Ciència de Dades i consisteix en el desenvolupament d’una eina automatitzada per a la classificació d’imatges dermatoscòpiques mitjançant models avançats d’intel·ligència artificial. El sistema integra diverses tecnologies per facilitar la seva aplicació en entorns clínics i investigadors.
+Hem fet el undersampling de cada Dataset , tenim els conjunts de dades triats per als nostres entrenaments on hem utilitzat cada script per a entrenar cada model en cada classificació.
+Una vegada tenim els 15 models entrenats 5 per cada classificació , ja disposem del necessari per tal de treballar amb l'eina de automatització.
 
 ---
-
-## 🚀 Estructura del projecte
+## 🚀 Estructura del projecte de Docker
 ```
 TFM_celiosanchez/
 │
-├── .n8n/ # Configuració i workflows d'automatització n8n
-├── pycache/ # Fitxers temporals Python
+├── .n8n/                      # Configuració i workflows d'automatització n8n
+├── __pycache__/               # Fitxers temporals Python
 ├── app/
-│ ├── init.py
-│ ├── pycache/
-│ ├── models/ # Carpeta per als models IA (vegeu nota important)
-│ ├── Classif_1_.h5/.pth
-│ ├── Classif_2_.h5/.pth
-│ └── Classif_3_*.h5/.pth
-├── main.py # Backend FastAPI
-├── Dockerfile # Imatge Docker principal
-├── docker-compose.yml # Orquestració de serveis
-├── requirements.txt # Dependències Python
-├── Prediure_Imatge.json # Workflow n8n (importable)
-├── streamlit_app.py # Interfície d'usuari Streamlit
+│   ├── __init__.py
+│   ├── __pycache__/
+│   ├── models/                # Carpeta per als models IA (vegeu nota important)
+│ 		├── Classif_1_ SwinV2.pth
+│ 		├── Classif_1_DenseNet201.h5
+│ 		├── Classif_1_inceptionresnetv2.h5
+│ 		├── Classif_1_ViT-B16.pth
+│ 		├── Classif_1_Xception.h5
+│ 		├── Classif_2_DenseNet201.h5
+│ 		├── Classif_2_inceptionresnetv2.h5
+│ 		├── Classif_2_SwinV2.pth
+│ 		├── Classif_2_ViT-B16.pth
+│ 		├── Classif_2_Xception.h5
+│ 		├── Classif_3_DenseNet201.h5
+│ 		├── Classif_3_inceptionresnetv2.h5
+│ 		├── Classif_3_SwinV2.pth
+│ 		├── Classif_3_ViT-B16.pth
+│ 		└── Classif_3_Xception.h5
+│
+├── main.py                    # Backend FastAPI
+├── Dockerfile                 # Imatge Docker principal
+├── docker-compose.yml         # Orquestració de serveis
+├── requirements.txt           # Dependències Python
+├── Prediure_Imatge.json       # Workflow n8n (importable)
+├── streamlit_app.py           # Interfície d'usuari Streamlit
 ```
-text
 
 ---
 
@@ -102,24 +133,18 @@ Els models són de gran mida i estan allotjats externament a Google Drive.
 ## 🛠️ Instal·lació i execució
 
 1. **Clona el repositori**
-git clone https://github.com/celiosanchezUOC/TFM_CienciaDeDades_2025.git
-cd TFM_CienciaDeDades_2025
-
-text
+- git clone https://github.com/celiosanchezUOC/TFM_CienciaDeDades_2025.git
+- cd TFM_CienciaDeDades_2025
 
 2. **Descomprimeix `TFM_celiosanchez.zip`**
-unzip TFM_celiosanchez.zip
-cd TFM_celiosanchez
-
-text
+- unzip TFM_celiosanchez.zip
+- cd TFM_celiosanchez
 
 3. **Descarrega els models IA des del Google Drive**  
-Sol·licita accés i descarrega els fitxers. Col·loca’ls a `app/models/`.
+- Sol·licita accés i descarrega els fitxers. Col·loca’ls a `app/models/`.
 
 4. **Desplega els serveis amb Docker Compose**
-docker-compose up --build
-
-text
+- docker-compose up --build
 
 5. **Accedeix als serveis:**
 - **Streamlit:** [http://localhost:8501](http://localhost:8501)
@@ -152,13 +177,6 @@ text
 
 ---
 
-## 🔒 Privacitat i dades
-
-- Només s’utilitzen datasets públics i anonimitzats.
-- No es comparteixen dades sensibles ni personals.
-
----
-
 ## 📑 Documentació addicional
 
 - Consulta la memòria del TFM per a detalls tècnics, resultats i justificació de decisions.
@@ -170,7 +188,6 @@ text
 
 **Celio Sánchez Bañuls**  
 [GitHub](https://github.com/celiosanchezUOC)  
-[LinkedIn](https://www.linkedin.com/in/celiosanchez/) *(si vols afegir-ho)*
 
 ---
 
