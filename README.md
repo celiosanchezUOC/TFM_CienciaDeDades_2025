@@ -55,7 +55,7 @@ Aquest projecte és el resultat del Treball de Fi de Màster en Ciència de Dade
 ---
 
 ## 🚀 Estructura del projecte
-
+```
 TFM_celiosanchez/
 │
 ├── .n8n/ # Configuració i workflows d'automatització n8n
@@ -73,7 +73,7 @@ TFM_celiosanchez/
 ├── requirements.txt # Dependències Python
 ├── Prediure_Imatge.json # Workflow n8n (importable)
 ├── streamlit_app.py # Interfície d'usuari Streamlit
-
+```
 text
 
 ---
